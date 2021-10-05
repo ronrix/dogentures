@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import sampleImg from "../../../../assets/sample-img.webp";
 import { gql, useMutation } from '@apollo/client';
+import {SERVER_PATH} from '../../../../config/index.js';
 
 const HEART_REACT = gql`
     mutation React($id: Int!) {
@@ -31,12 +32,12 @@ export const Image = ({ userInfo, postImage, hearts, id }) => {
     return (
         <>
             <img
-                src={postImage ? `http://localhost:4000/images/posts/${userInfo?.getUserInfoById?.name}/${postImage}` : sampleImg}
+                src={postImage ? `${SERVER_PATH}images/posts/${userInfo?.getUserInfoById?.name}/${postImage}` : sampleImg}
                 alt="dogs"
-                className="w-1/2 cursor-pointer bg-ld h-1/2"
+                className="sm:w-full md:w-1/2 cursor-pointer bg-ld h-1/2"
             /> 
 
-            <div className="flex items-center absolute z-10 bg-l rounded-r-sm p-2">
+            <div className="flex items-center absolute z-10 bg-l rounded-r-sm p-2 sm:top-0">
                 <i
                     id="heart"
                     className={`fas fa-heart text-4xl cursor-pointer text-r mx-2`}

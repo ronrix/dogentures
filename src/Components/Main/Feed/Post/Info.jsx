@@ -1,5 +1,6 @@
 import React, { useState }  from "react";
 import { useQuery, gql, useSubscription, useMutation } from '@apollo/client';
+import {SERVER_PATH} from '../../../../config/index.js';
 
 const GET_COMMENTS = gql`
     query GetComments($id: ID!) {
@@ -132,26 +133,27 @@ export const Info = ({userInfo, description, postId}) => {
             <div className="flex flex-col pl-4">
                 <div className="flex space-around items-center">
                     {userInfo?.getUserInfoById.avatar ? (
+                        <div className="w-12 h-12 rounded-full overflow-hidden">
                         <img 
-                            src={`http://localhost:4000/images/profile/${userInfo?.getUserInfoById?.name}/${userInfo?.getUserInfoById?.avatar}`} 
+                            src={`${SERVER_PATH}images/profile/${userInfo?.getUserInfoById?.name}/${userInfo?.getUserInfoById?.avatar}`} 
                             alt="user avatar"
-                            className="w-12 rounded-full"
-                    />) : <i class="far fa-user-circle text-2xl"></i>}
+                            className="rounded-full"
+                        /></div>) : <i class="far fa-user-circle text-2xl"></i>}
                     <div className="flex flex-col">
-                        <span className="text-2xl text-d font-bold ml-2">{userInfo?.getUserInfoById.name}</span>
-                        <span className="text-sm ml-2 text-dark-gray">@{userInfo?.getUserInfoById.name}</span>
+                        <span className="sm:text-md lg:text-2xl text-d font-bold ml-2">{userInfo?.getUserInfoById.name}</span>
+                        <span className="sm:text-xs lg:text-sm ml-2 text-dark-gray">@{userInfo?.getUserInfoById.name}</span>
                     </div>
                 </div>
 
                 <div className="p-4">
-                    <p className="text-dark-gray text-lg">{description}</p>
+                    <p className="text-dark-gray lg:text-lg sm:text-sm">{description}</p>
                 </div>
             </div>
 
             <div className="flex-1">
                 <div className="ml-2 text-d font-bold">comments</div>
-                <div className="h-80 overflow-auto px-4 relative">
-                    <div className="flex flex-col self-end">
+                <div className="sm:h-auto md:h-80 overflow-auto px-4 relative">
+                    <div className="flex flex-col self-end lg:text-md sm:text-sm mb-2">
                         { data ?  data?.getComments.map((user, idx) => {
                             return <div>under development</div>
                             /*return (

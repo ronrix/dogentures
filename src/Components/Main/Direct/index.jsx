@@ -1,12 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 
 import sample from '../../../assets/default-prof-1.webp';
 
 export const DirectMessages = () => {
+
+    const [isMsgsShown, setIsMsgsShown] = useState(false);
+
     return (
-        <div className="pl-96 w-full bg-white h-screen overflow-auto ">
-            <div className="pl-16 pr-14 pt-7 pb-0 flex p-8 relativ">
-                <div className="w-96 bg-light-gray p-4 h-screen rounded-md overflow-auto relative">
+        <div className="sm:pl-14 mg:pl-30 lg:pl-96 w-full bg-white h-screen overflow-auto ">
+            <div className="lg:pl-16 lg:pr-14 pt-7 pb-0 flex p-8 relative overflow-hidden">
+                <div
+                    className="w-20 h-20 rounded-full bg-d sm:visible lg:invisible absolute left-4 bottom-20 z-20 flex justify-center items-center text-center hover:opacity-75"
+                    onClick={() => setIsMsgsShown(!isMsgsShown)}
+                >
+                    <i className="fas fa-bars text-l text-5xl"></i>
+                </div>
+                <div className={`sm:z-10 shadow-lg sm:visible sm:absolute sm:transform ${isMsgsShown ? 'sm:translate-y-0' : 'sm:translate-y-full'} lg:translate-x-0 w-96 bg-light-gray p-4 h-screen rounded-md overflow-auto relative transition`}>
                     <input type="text" placeholder="search" className="w-full rounded-full p-2 border-none outline-none" />
                     <div className="mt-2 font-md">messages</div>
 

@@ -22,7 +22,7 @@ export const Post = ({data}) => {
 
     return (
         <>
-            <div className="max-h-1/2 flex mt-8 justify-between relative bg-l rounded-lg shadow-lg overflow-hidden">
+            <div className="max-h-1/2 md:flex mt-8 md:justify-between relative bg-l rounded-lg shadow-lg overflow-hidden">
                 <Image postImage={data.image} userInfo={userInfo} hearts={data.hearts} id={data.id}/>
                 <Info userInfo={userInfo} description={data.description} postId={data.id} />
             </div>

@@ -18,7 +18,7 @@ export const Settings = () => {
     }
 
     return (
-        <div className="pl-96 w-full bg-gray-600 h-screen overflow-hidden ">
+        <div className="sm:pl-10 mg:pl-30 lg:pl-96 w-full bg-gray-600 h-screen overflow-hidden ">
             <div className="pl-16 pr-14 pt-7 h-full">
                 <div className="">
                     <h1 className="font-bold text-2xl">Settings</h1>

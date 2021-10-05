@@ -9,10 +9,10 @@ export const NavLink = ({ routeLink, value, icon }) => {
         >
             <Link
                 to={routeLink}
-                className="cursor-pointer flex justify-start items-center relative w-full"
+                className="cursor-pointer flex lg:justify-start items-center relative w-full"
             >
-                <i class={icon}></i>
-                <span className="pl-2">{value}</span>
+                <i className={`${icon} text-2xl`}></i>
+                <span className="pl-2 sm:invisible lg:visible">{value}</span>
             </Link>
             <div></div>
             <div

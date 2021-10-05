@@ -5,7 +5,7 @@ import { Contents } from "./Content.jsx";
 
 export const DogosFeed = () => {
     return (
-        <div className="pl-96 w-full bg-light-gray font-arial">
+        <div className="lg:pl-96 md:pl-32 sm:pl-20 lg:bg-light-gray w-full bg-light-gray font-arial">
             <div className="pl-16 pr-14 pt-7">
                 <TopBar />
                 <div className="my-8">

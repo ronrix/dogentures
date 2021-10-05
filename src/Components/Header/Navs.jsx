@@ -9,7 +9,7 @@ export const Navs = () => {
     };
 
     return (
-        <ul className="flex flex-col w-full justify-evenly  h-full font-bold  pl-14">
+        <ul className="flex flex-col w-full justify-evenly items-center h-full font-bold sm:pl-4 lg:pl-14 ">
             <NavLink
                 routeLink={"/dogsfeed"}
                 value="news"
@@ -44,12 +44,12 @@ export const Navs = () => {
                 className={`flex w-full relative hover:text-ld group py-2`}
             >
                 <div className="flex items-center justify-center">
-                    <i class="fas fa-sign-out-alt"></i>
+                    <i class="fas fa-sign-out-alt text-2xl pl-2"></i>
                     <button
                         onClick={handleLogOut}
                         className="ml-4 cursor-pointer font-bold"
                     >
-                        logout
+                        <span className="sm:invisible lg:visible">logout</span>
                     </button>
                 </div>
                 <div></div>

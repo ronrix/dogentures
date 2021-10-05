@@ -3,6 +3,8 @@ import React from "react";
 import dogie from '../../../assets/dog-01.jpeg';
 import {gql, useQuery} from '@apollo/client';
 
+import {SERVER_PATH} from '../../../config/index.js';
+
 const GET_ALL_POSTS_BY_USERID = gql`
     query GetAllPosts {
         getAllPostsByUserId {
@@ -31,7 +33,7 @@ export const Posts = () => {
     const {data} = useQuery(GET_INFO);
 
     return (
-        <div className="pl-96 w-full bg-gray-600 h-screen">
+        <div className="sm:pl-20 md:pl-32 lg:pl-96 w-full bg-gray-600 h-screen">
             <div className="p-12 pl-20 ">
                 {/* user info */}
                 <div className="flex items-center justify-between mb-4">
@@ -41,9 +43,9 @@ export const Posts = () => {
 
                         <p className="p-4 font-medium text-lg">this is the bio stuff</p>
                     </div>
-                    <div className="w-32 rounded-full h-32 overflow-hidden">
+                    <div className="w-32 rounded-full h-32 overflow-hidden shadow-lg">
                         <img 
-                            src={`http://localhost:4000/images/profile/${data?.getInfo.name}/${data?.getInfo.avatar}`} 
+                            src={`${SERVER_PATH}images/profile/${data?.getInfo.name}/${data?.getInfo.avatar}`} 
                             alt="avatar"
                             className="rounded-full" 
                         />
@@ -57,9 +59,9 @@ export const Posts = () => {
                     {posts ? posts?.getAllPostsByUserId.map((post) => {
                         return (
                             <div className="flex relative flex-wrap">
-                                <div className="relative w-full">
+                                <div className="relative w-full shadow-lg">
                                     { data ? 
-                                        <img src={`http://localhost:4000/images/posts/${data?.getInfo?.name}/${post?.image}`} alt="avatar" className="m-2 w-full" />
+                                        <img src={`${SERVER_PATH}images/posts/${data?.getInfo?.name}/${post?.image}`} alt="avatar" className="m-2 w-full" />
                                         : <span>data is null</span>
                                     }
                                     <div className="flex justify-between items-center">
