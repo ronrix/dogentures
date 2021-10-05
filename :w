@@ -1,0 +1,82 @@
+import { Formik, Form } from "formik";
+import React, { useState, useRef } from "react";
+
+export const AddNewPost = ({ isOpen, setIsNewPostFieldShow }) => {
+    const [desc, setDesc] = useState("");
+    const [file, setFile] = useState();
+
+    const fileRef = useRef(null);
+
+    const browseFile = () => {
+        fileRef.current.click();
+    };
+
+    const handleFile = (e) => {
+        setFile(e.target.files[0]);
+        console.log(e.target.files[0]);
+    };
+
+    const handleSubmit = (values) => {
+        const user = localStorage.getItem("token");
+        console.log(user);
+        console.log(values);
+    };
+
+    if (isOpen) {
+        return (
+            <Formik
+                initialValues={{ desc: "", filePhoto: "" }}
+                onSubmit={(values) => handleSubmit(values)}
+            >
+                <Form className="mt-4">
+                    <div className="text-sm text-g">add description</div>
+                    <textarea
+                        className="w-full p-2"
+                        name="desc"
+                        value={desc}
+                        onChange={(e) => setDesc(e.target.value)}
+                        placeholder={"write down your thoughts"}
+                    ></textarea>
+                    <div className="mt-2 rounded-r-lg">
+                        <span className="pr-2 text-sm text-g">
+                            add your photo
+                        </span>
+                        <button
+                            onClick={browseFile}
+                            className="bg-ld px-2 text-l"
+                        >
+                            click
+                        </button>
+                        <input
+                            type="file"
+                            name="filePhoto"
+                            className="invisible"
+                            ref={fileRef}
+                            value={file}
+                            onChange={(e) => {
+                                alert("hello");
+                                handleFile(e);
+                            }}
+                        />
+                    </div>
+                    <div className="mt-4 flex">
+                        <button
+                            type="submit"
+                            className="bg-blue-600 text-white font-bold p-2 rounded-lg hover:bg-opacity-75 "
+                        >
+                            post
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setIsNewPostFieldShow(false)}
+                            className=" text-gray-200 font-bold p-2 rounded-lg hover:text-opacity-75 ml-4"
+                        >
+                            cancel
+                        </button>
+                    </div>
+                </Form>
+            </Formik>
+        );
+    }
+    return null;
+};
