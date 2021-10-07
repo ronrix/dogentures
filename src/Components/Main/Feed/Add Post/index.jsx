@@ -60,7 +60,6 @@ export const AddNewPost = ({ isOpen, setIsNewPostFieldShow }) => {
         // toggle success message in one second
         setSuccessMsgOn(true);
         setTimeout(() => setSuccessMsgOn(false), 1000);
-        console.log('hello');
     };
 
 

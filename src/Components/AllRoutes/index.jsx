@@ -16,7 +16,7 @@ export const AllRoutes = ({ token }) => {
                     !token ? (
                         <Redirect to="/login" />
                     ) : (
-                        <Redirect to="/dogsfeed" />
+                        <Redirect to="/app" />
                     )
                 }
             />
@@ -48,7 +48,7 @@ export const AllRoutes = ({ token }) => {
             />
             <Route
                 exact
-                path="/dogsfeed/posts"
+                path="/app/posts"
                 component={() =>
                     token ? <Feed posts={true} /> : <Redirect to="/login" />
                 }
@@ -56,7 +56,7 @@ export const AllRoutes = ({ token }) => {
 
             <Route
                 exact
-                path="/dogsfeed"
+                path="/app"
                 component={() =>
                     token ? <Feed feed={true} /> : <Redirect to="/login" />
                 }
@@ -64,7 +64,7 @@ export const AllRoutes = ({ token }) => {
 
             <Route
                 exact
-                path="/dogsfeed/notifications"
+                path="/app/notifications"
                 component={() =>
                     token ? (
                         <Feed notifications={true} />
@@ -76,7 +76,7 @@ export const AllRoutes = ({ token }) => {
 
             <Route
                 exact
-                path="/dogsfeed/explore"
+                path="/app/explore"
                 component={() =>
                     token ? <Feed explore={true} /> : <Redirect to="/login" />
                 }
@@ -84,7 +84,7 @@ export const AllRoutes = ({ token }) => {
 
             <Route
                 exact
-                path="/dogsfeed/direct"
+                path="/app/direct"
                 component={() =>
                     token ? <Feed messages={true} /> : <Redirect to="/login" />
                 }
@@ -92,7 +92,7 @@ export const AllRoutes = ({ token }) => {
 
             <Route
                 exact
-                path="/dogsfeed/settings"
+                path="/app/settings"
                 component={() =>
                     token ? <Feed settings={true} /> : <Redirect to="/login" />
                 }

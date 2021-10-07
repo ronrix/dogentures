@@ -21,7 +21,7 @@ const handleOnSubmit = async (
     isSubmitting,
     isRegister
 ) => {
-    console.log('calling the backend');
+    document.title = "loading";
     if (isSubmitting) document.body.style.cursor = "wait";
 
     // login | signup
@@ -41,7 +41,7 @@ const handleOnSubmit = async (
                 data.register.accessToken
             );
             document.body.style.cursor = "default";
-            window.location.href = "/dogsfeed";
+            window.location.href = "/app";
         }
 
         // remove some data stored in LS
@@ -60,12 +60,11 @@ const handleOnSubmit = async (
                 data.login.accessToken
             );
             document.body.style.cursor = "default";
-            window.location.href = "/dogsfeed";
+            window.location.href = "/app";
         }
 
         setError(data.login.msg);
     }
-    console.log('end');
     document.body.style.cursor = "default";
 };
 

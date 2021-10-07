@@ -25,15 +25,15 @@ export const Feed = (props) => {
     );
     const { loading, data, error } = useQuery(VERIFY, {
         variables: { token: JSON.parse(token) },
-        context: { headers: { 'authorization': `Bearer ${JSON.parse(token)}`} }
+        context: { headers: { authorization: `Bearer ${JSON.parse(token)}` } },
     });
 
     useEffect(() => {
-        if(error || data?.verifyToken?.ok === false) {
-            localStorage.removeItem('token');
+        if (error || data?.verifyToken?.ok === false) {
+            localStorage.removeItem("token");
             window.location.href = "/login";
         }
-    }, [token])
+    }, [token]);
 
     return (
         <>

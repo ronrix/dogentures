@@ -23,7 +23,6 @@ const GET_POSTS = gql`
     }
 `;
 
-
 function App() {
     const [activeNav, setNavActive] = useState("feed");
     const [token] = useState(() => localStorage.getItem("token"));
@@ -32,22 +31,26 @@ function App() {
         : " flex md:h-screen justify-center items-center";
 
     // fetch the data
-    const {data} = useQuery(GET_POSTS, 
-        { context: { 
-            headers: { 'authorization': `Bearer ${JSON.parse(JSON.stringify(localStorage.getItem('token')))} `} 
+    const { data } = useQuery(GET_POSTS, {
+        context: {
+            headers: {
+                authorization: `Bearer ${JSON.parse(
+                    JSON.stringify(localStorage.getItem("token"))
+                )} `,
+            },
         },
-        pollInterval: 100,
-        });
+        // pollInterval: 100,
+    });
 
     return (
         <div className={`${authenticatedStyle}`}>
             <NavContext.Provider value={{ activeNav, setNavActive }}>
                 <Data.Provider value={{ data }}>
-                      <Router>
-                          <Switch>
-                              <AllRoutes token={token} />
-                          </Switch>
-                      </Router>
+                    <Router>
+                        <Switch>
+                            <AllRoutes token={token} />
+                        </Switch>
+                    </Router>
                 </Data.Provider>
             </NavContext.Provider>
         </div>

@@ -9,7 +9,8 @@ const HEART_REACT = gql`
     }
 `;
 
-export const Image = ({ userInfo, postImage, hearts, id }) => {
+//
+export const Image = ({ userInfo, postImage, hearts, id, loading }) => {
     const token = JSON.parse(JSON.stringify(localStorage.getItem('token')));
     const [reaction] = useMutation(HEART_REACT, { context: { headers: { 'authorization': `Bearer ${token}` } } });
 
@@ -25,22 +26,26 @@ export const Image = ({ userInfo, postImage, hearts, id }) => {
     }
 
     function handleMouseOver() {
-        alert("hovered");
         setHovered(!hovered);
     }
 
     return (
         <>
-            <img
-                src={postImage ? `${SERVER_PATH}images/posts/${userInfo?.getUserInfoById?.name}/${postImage}` : sampleImg}
-                alt="dogs"
-                className="sm:w-full md:w-1/2 cursor-pointer bg-ld h-1/2"
-            /> 
+            { loading ? (
+                <div className="h-96 w-1/2 animate-pulse bg-d py-64">
+                </div>
+            ) : (
+                <img
+                        src={postImage ? `${SERVER_PATH}images/posts/${userInfo?.getUserInfoById?.name}/${postImage}` : sampleImg}
+                        alt="dogs"
+                        className="sm:w-full md:w-1/2 cursor-pointer bg-ld h-1/2"
+                />
+            )}
 
             <div className="flex items-center absolute z-10 bg-l rounded-r-sm p-2 sm:top-0">
                 <i
                     id="heart"
-                    className={`fas fa-heart text-4xl cursor-pointer text-r mx-2`}
+                    className={`fas fa-heart sm:text-lg md:text-4xl cursor-pointer text-r mx-2`}
                 ></i>
                 <span>{hearts}</span>
             </div>

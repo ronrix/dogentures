@@ -151,11 +151,11 @@ export const Info = ({userInfo, description, postId}) => {
             </div>
 
             <div className="flex-1">
-                <div className="ml-2 text-d font-bold">comments</div>
+                <div className="ml-2 text-d font-bold sm:text-sm md:text-md">comments</div>
                 <div className="sm:h-auto md:h-80 overflow-auto px-4 relative">
                     <div className="flex flex-col self-end lg:text-md sm:text-sm mb-2">
                         { data ?  data?.getComments.map((user, idx) => {
-                            return <div>under development</div>
+                            return <div key={idx}>under development</div>
                             /*return (
                             <div key={idx} className="rounded-md bg-light-gray p-2 mb-2">
                                 <div className="flex items-center flex-wrap">
@@ -178,8 +178,8 @@ export const Info = ({userInfo, description, postId}) => {
                 </div>
             </div>
             <div className="flex items-center">
-                <input type="text" className="border-2 border-d w-full rounded-lg p-2" placeholder="write your comment" onKeyUp={(e) => sendCommentViaKey(e)} value={comment} onChange={(e) => setComment(e.target.value)}/>
-                <button onClick={sendComment} className="ml-2 p-2 bg-facebook rounded-md text-l font-bold">send</button>
+                <input type="text" className="sm:text-sm md:text-md border-2 border-d w-full rounded-lg p-2" placeholder="write your comment" onKeyUp={(e) => sendCommentViaKey(e)} value={comment} onChange={(e) => setComment(e.target.value)}/>
+                <button onClick={sendComment} className="sm:text-sm md:text-md ml-2 p-2 bg-facebook rounded-md text-l font-bold">send</button>
             </div>
         </div>
     );

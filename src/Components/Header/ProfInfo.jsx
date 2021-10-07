@@ -16,7 +16,6 @@ export const ProfInfo = () => {
     const { data } = useQuery(QUERY,
         { context: { headers: { 'authorization': `Bearer ${JSON.parse(JSON.stringify(localStorage.getItem('token')))} `} }}
     ); 
-    console.log(SERVER_PATH);
 
     return (
         <div className="flex flex-col items-center justify-center">
@@ -24,11 +23,11 @@ export const ProfInfo = () => {
                 <span className={`sm:invisible lg:visible text-3xl text-d font-extrabold ml-4 uppercase`}>
                     Dogentures
                 </span>
-                <span className="font-bold text-4xl left-0 sm:visible lg:invisible absolute left-8">D</span>
+                <span className="font-bold text-4xl sm:visible lg:invisible absolute left-7">D</span>
             </div>
             <div className="flex flex-col items-center justify-center mt-2">
                 { data?.getInfo?.avatar ? (
-                    <div className="sm:w-14 sm:h-14 lg:w-24 rounded-full lg:h-24 overflow-hidden shadow-lg">
+                    <div className="sm:w-10 sm:h-10 lg:w-24 rounded-full lg:h-24 overflow-hidden shadow-lg">
                         <img src={`${SERVER_PATH}images/profile/${data?.getInfo?.name}/${data?.getInfo?.avatar}`} 
                             alt="user avatar"
                             className="rounded-full"
