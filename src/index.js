@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
 import { createUploadLink } from "apollo-upload-client";
+import {SERVER_PATH} from './config/index.js';
 
 const httpLink = createHttpLink({uri: 'http://localhost:4000/graphql', withCredentials: true});
 
@@ -34,7 +35,7 @@ const authLink = setContext((_, { headers }) => {
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: createUploadLink({
-    uri: "http://localhost:4000/graphql"
+    uri: SERVER_PATH,
   })
 });
 
