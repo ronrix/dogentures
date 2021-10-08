@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {useQuery, gql} from '@apollo/client';
 import {SERVER_PATH} from '../../config/index.js';
 
@@ -16,6 +16,7 @@ export const ProfInfo = () => {
     const { data } = useQuery(QUERY,
         { context: { headers: { 'authorization': `Bearer ${JSON.parse(JSON.stringify(localStorage.getItem('token')))} `} }}
     ); 
+    const [isImgErr, setImgErr] = useState(false);
 
     return (
         <div className="flex flex-col items-center justify-center">
@@ -26,14 +27,15 @@ export const ProfInfo = () => {
                 <span className="font-bold text-4xl sm:visible lg:invisible absolute left-7">D</span>
             </div>
             <div className="flex flex-col items-center justify-center mt-2">
-                { data?.getInfo?.avatar ? (
+                { data?.getInfo?.avatar && isImgErr? (
                     <div className="sm:w-10 sm:h-10 lg:w-24 rounded-full lg:h-24 overflow-hidden shadow-lg">
                         <img src={`${SERVER_PATH}images/profile/${data?.getInfo?.name}/${data?.getInfo?.avatar}`} 
                             alt="user avatar"
                             className="rounded-full"
+                            onError={() => setImgErr(true)}
                         /> 
                     </div>)
-                : (<i class="far fa-user-circle text-5xl"></i>) }
+                    : (<i class="far fa-user-circle sm:text-3xl md:text-5xl"></i>) }
                 <span className="text-d font-extrabold text-lg">
                     {data?.getInfo?.name}
                 </span>

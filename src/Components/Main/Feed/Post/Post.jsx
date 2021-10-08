@@ -2,7 +2,7 @@ import React from "react";
 
 import { Image } from "./Image.jsx";
 import { Info } from "./Info.jsx";
-import {gql, useQuery} from '@apollo/client';
+import {gql, useQuery, useMutation} from '@apollo/client';
 
 const QUERY = gql`
     query GetInfo($userId: ID!) {
@@ -25,9 +25,9 @@ export const Post = ({data}) => {
             { loading ? (
                 <div className="animate-pulse h-96 max-w-full bg-l text-l mb-2 relative rounded-lg shadow-lg py-64"></div>
             ): (
-                <div className="max-h-1/2 md:flex mt-8 md:justify-between relative bg-l rounded-lg shadow-lg overflow-hidden">
-                    <Image postImage={data.image} userInfo={userInfo} hearts={data.hearts} id={data.id} loading={loading} />
-                    <Info userInfo={userInfo} description={data.description} postId={data.id} />
+                <div className="max-h-1/2 md:flex mt-8 md:justify-between relative bg-l rounded-lg shadow-lg bg-gradient-to-r from-d to-g overflow-hidden">
+                    <Image postImage={data.image} userInfo={userInfo} id={data.id} loading={loading} />
+                    <Info userInfo={userInfo} description={data.description} postId={data.id} hearts={data.hearts} />
                 </div>
             )}
         </>

@@ -1,61 +1,68 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import sampleImg from "../../../../assets/sample-img.webp";
-import { gql, useMutation } from '@apollo/client';
 import {SERVER_PATH} from '../../../../config/index.js';
+import {gql, useMutation} from '@apollo/client';
 
 const HEART_REACT = gql`
-    mutation React($id: Int!) {
+    mutation React($id: ID!) {
         reaction(id: $id)
     }
 `;
 
-//
-export const Image = ({ userInfo, postImage, hearts, id, loading }) => {
+export const Image = ({ userInfo, postImage, id, loading }) => {
     const token = JSON.parse(JSON.stringify(localStorage.getItem('token')));
-    const [reaction] = useMutation(HEART_REACT, { context: { headers: { 'authorization': `Bearer ${token}` } } });
+    const [reaction] = useMutation(HEART_REACT, { pollInterval: 200, context: { headers: { 'authorization': `Bearer ${token}` } } });
 
-    const [customClass, setCustomClass] = useState('');
     const [reacted, setReacted] = useState(false);
-    const [hovered, setHovered] = useState(false);
+
+    const [onImgError, setOnImgError] = useState(false);
+
+    useEffect(() => {
+        if(reacted) {
+            setTimeout(()=>{
+                setReacted(false);
+            }, 1000);
+        }
+    });
 
     function handleHeartReaction() {
-        alert('you clicked me, whole heartedly');
         reaction({ variables: { id: id } });
-        setCustomClass('animation-ping text-r');
         setReacted(true); 
     }
 
-    function handleMouseOver() {
-        setHovered(!hovered);
+    const lastTap = useRef(null);
+    function handleTouchEvent() {
+        const currTime = new Date().getTime();
+        const tapLength = currTime - lastTap.current;
+        if(tapLength < 500 && tapLength > 0) {
+            reaction({ variables: { id: id } });
+            setReacted(true)
+        }
+        lastTap.current = currTime;
     }
 
     return (
-        <>
+        <div className="flex-1 relative flex justify-center items-center">
             { loading ? (
                 <div className="h-96 w-1/2 animate-pulse bg-d py-64">
                 </div>
-            ) : (
+            ) : !onImgError ? (
                 <img
+                        onDoubleClick={handleHeartReaction}
+                        onTouchEnd={handleTouchEvent}
                         src={postImage ? `${SERVER_PATH}images/posts/${userInfo?.getUserInfoById?.name}/${postImage}` : sampleImg}
                         alt="dogs"
-                        className="sm:w-full md:w-1/2 cursor-pointer bg-ld h-1/2"
-                />
-            )}
+                        className="sm:w-full md:w-10/12 cursor-pointer bg-ld h-full transform scale-75"
+                        onError={() => setOnImgError(true)}
+                />) : (<p className="text-center sm:w-full md:w-1/2 p-4 text-r">error: img not retrieved, heroku free hosting</p>)
+            }
 
-            <div className="flex items-center absolute z-10 bg-l rounded-r-sm p-2 sm:top-0">
-                <i
-                    id="heart"
-                    className={`fas fa-heart sm:text-lg md:text-4xl cursor-pointer text-r mx-2`}
-                ></i>
-                <span>{hearts}</span>
-            </div>
 
-            <div className={`z-20 absolute top-0 left-0 bottom-0 right-1/2 flex items-center justify-center opacity-0 ${hovered ? 'hover:opacity-100' : ''} transition duration-300 ease-in-out`}>
+            <div className={`absolute top-0 left-0 bottom-0 right-0 flex items-center justify-center transition duration-300 ease-in-out ${ reacted ? "visiblle" : 'invisible' } `}>
                 <div className="w-full h-full flex justify-center items-center p-32">
-                    <span className={`bg-l text-l px-4 text-d ${reacted || customClass ? 'opacity-0': 'opacity-100'}`}>double click to react</span>
-                    <i id="heart" className={`fas fa-heart text-9xl cursor-pointer text-l mx-2 absolute transform ${reacted ? 'opacity-100': 'opacity-0' } ${customClass} `}></i> 
+                    <i id="heart" className={`fas fa-heart text-8xl cursor-pointer text-r mx-2 absolute transform ease-in-out ${reacted ? 'scale-100' : 'scale-0'} duration-200 transition`}></i> 
                 </div> 
             </div>
-        </>
+        </div>
     );
 };

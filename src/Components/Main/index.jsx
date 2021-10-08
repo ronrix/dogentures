@@ -29,11 +29,12 @@ export const Feed = (props) => {
     });
 
     useEffect(() => {
+        console.log(error);
         if (error || data?.verifyToken?.ok === false) {
             localStorage.removeItem("token");
             window.location.href = "/login";
         }
-    }, [token]);
+    }, [token, data, error]);
 
     return (
         <>

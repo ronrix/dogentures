@@ -7,21 +7,22 @@ export const UserPosts = ({ posts, data }) => {
             <div className="text-md text-d font-bold">posts</div>
 
             {/* posts */}
+            <div className="flex">
             {posts ? (
                 posts?.getAllPostsByUserId.map((post, idx) => {
                     return (
-                        <div key={idx} className="flex relative flex-wrap">
-                            <div className="relative w-full shadow-lg">
+                        <div key={idx} className="flex relative flex-wrap m-2">
+                            <div className="relative ">
                                 {data ? (
                                     <img
                                         src={`${SERVER_PATH}images/posts/${data?.getInfo?.name}/${post?.image}`}
                                         alt="avatar"
-                                        className="m-2 w-full"
+                                        className=" w-full shadow-lg"
                                     />
                                 ) : (
                                     <span>data is null</span>
                                 )}
-                                <div className="flex justify-between items-center">
+                                {/*<div className="flex justify-between items-center">
                                     <p className="p-2 text-lg">
                                         {post?.description}
                                     </p>
@@ -32,7 +33,7 @@ export const UserPosts = ({ posts, data }) => {
                                             className={`fas fa-heart text-4xl cursor-pointer text-r mx-2`}
                                         ></i>
                                     </div>
-                                </div>
+                                </div>*/}
                             </div>
                         </div>
                     );
@@ -40,6 +41,7 @@ export const UserPosts = ({ posts, data }) => {
             ) : (
                 <div>no post</div>
             )}
+            </div>
         </div>
     );
 };
