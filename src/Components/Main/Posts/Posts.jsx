@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import { SERVER_PATH } from "../../../config/index.js";
 
 export const UserPosts = ({ posts, data }) => {
+    const [isImgErr, setIsImgErr] = useState(false);
     return (
         <div>
             <div className="text-md text-d font-bold">posts</div>
@@ -13,27 +14,16 @@ export const UserPosts = ({ posts, data }) => {
                     return (
                         <div key={idx} className="flex relative flex-wrap m-2">
                             <div className="relative ">
-                                {data ? (
+                                {data && !isImgErr ? (
                                     <img
                                         src={`${SERVER_PATH}images/posts/${data?.getInfo?.name}/${post?.image}`}
                                         alt="avatar"
                                         className=" w-full shadow-lg"
+                                        onError={() => setIsImgErr(true)}
                                     />
                                 ) : (
                                     <span>data is null</span>
                                 )}
-                                {/*<div className="flex justify-between items-center">
-                                    <p className="p-2 text-lg">
-                                        {post?.description}
-                                    </p>
-                                    <div className="flex items-center">
-                                        <span>{post?.hearts}</span>
-                                        <i
-                                            id="heart"
-                                            className={`fas fa-heart text-4xl cursor-pointer text-r mx-2`}
-                                        ></i>
-                                    </div>
-                                </div>*/}
                             </div>
                         </div>
                     );

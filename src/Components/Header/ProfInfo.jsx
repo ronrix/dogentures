@@ -35,7 +35,7 @@ export const ProfInfo = () => {
                             onError={() => setImgErr(true)}
                         /> 
                     </div>)
-                    : (<i class="far fa-user-circle sm:text-3xl md:text-5xl"></i>) }
+                    : (<i className="far fa-user-circle sm:text-3xl md:text-5xl"></i>) }
                 <span className="text-d font-extrabold text-lg">
                     {data?.getInfo?.name}
                 </span>

@@ -18,7 +18,7 @@ export const TopBar = () => {
                 </div>
                 <button
                     onClick={() => setIsNewPostFieldShow(true)}
-                    className="flex items-center justify-center md:p-2 rounded-xl text-l font-bold bg-gradient-to-r from-facebook via-r to-g hover:opacity-50 sm:text-sm sm:rounded-md lg:text-lg"
+                    className="flex items-center justify-center md:p-2 rounded-xl text-l font-bold bg-gradient-to-r from-d to-g hover:opacity-50 sm:text-sm sm:rounded-md lg:text-lg"
                 >
                     <i className="fa fa-plus-circle pr-1"></i>
                     <span>add photo</span>
