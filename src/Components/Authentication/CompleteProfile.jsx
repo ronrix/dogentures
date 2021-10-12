@@ -32,7 +32,7 @@ export const CompleteProfile = ({ setFieldValue, values, handleChange, ...props 
                         type="text"
                         name="name"
                         className={
-                            "bg-light-gray border-ld p-2 rounded-full hover:ring-2 px-4 outline-none"
+                            "bg-white border-ld p-2 rounded-full hover:ring-2 px-4 outline-none"
                         }
                     />
                     <div className="flex flex-col mt-4">
@@ -43,7 +43,7 @@ export const CompleteProfile = ({ setFieldValue, values, handleChange, ...props 
                             value={values.bdate}
                             onChange={handleChange}
                             className={
-                                "bg-light-gray border-ld p-2 rounded-full  hover:ring-2 px-4 outline-none"
+                                "bg-white border-ld p-2 rounded-full  hover:ring-2 px-4 outline-none"
                             }
                         />
                     </div>

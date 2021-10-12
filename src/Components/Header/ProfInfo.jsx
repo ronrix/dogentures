@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {useQuery, gql} from '@apollo/client';
 import {SERVER_PATH} from '../../config/index.js';
 
-const QUERY = gql`
+const INFO = gql`
     query GetInfo {
         getInfo {
             avatar
@@ -13,7 +13,7 @@ const QUERY = gql`
 `;
 
 export const ProfInfo = () => {
-    const { data } = useQuery(QUERY,
+    const { data } = useQuery(INFO,
         { context: { headers: { 'authorization': `Bearer ${JSON.parse(JSON.stringify(localStorage.getItem('token')))} `} }}
     ); 
     const [isImgErr, setImgErr] = useState(false);
@@ -27,7 +27,7 @@ export const ProfInfo = () => {
                 <span className="font-bold text-4xl sm:visible lg:invisible absolute left-7">D</span>
             </div>
             <div className="flex flex-col items-center justify-center mt-2">
-                { data?.getInfo?.avatar && isImgErr? (
+                { data?.getInfo?.avatar && !isImgErr? (
                     <div className="sm:w-10 sm:h-10 lg:w-24 rounded-full lg:h-24 overflow-hidden shadow-lg">
                         <img src={`${SERVER_PATH}images/profile/${data?.getInfo?.name}/${data?.getInfo?.avatar}`} 
                             alt="user avatar"

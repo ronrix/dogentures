@@ -9,12 +9,18 @@ const HEART_REACT = gql`
     }
 `;
 
-export const Image = ({ userInfo, postImage, id, loading }) => {
-    const token = JSON.parse(JSON.stringify(localStorage.getItem('token')));
-    const [reaction] = useMutation(HEART_REACT, { pollInterval: 200, context: { headers: { 'authorization': `Bearer ${token}` } } });
+const CREATE_NOTIF = gql`
+    mutation NotificationResolver($postId: ID!, $isComment: Boolean!, $isReact: Boolean!) {
+        createNofif(postId: $postId, isComment: $isComment, isReact: $isReact)
+    }
+`;
+
+export const Image = ({ userInfo, postImage, id, loading, setPreviewImg, previewImg }) => {
+    const token = localStorage.getItem('token');
+    const [reaction] = useMutation(HEART_REACT, { context: { headers: { 'authorization': `Bearer ${token}` } } });
+    const [createNotif] = useMutation(CREATE_NOTIF, { context: { headers: { 'authorization': `Bearer ${token}` } } });
 
     const [reacted, setReacted] = useState(false);
-
     const [onImgError, setOnImgError] = useState(false);
 
     useEffect(() => {
@@ -27,6 +33,7 @@ export const Image = ({ userInfo, postImage, id, loading }) => {
 
     function handleHeartReaction() {
         reaction({ variables: { id: id } });
+        createNotif({ variables: { postId: id, isComment: false, isReact: true } });
         setReacted(true); 
     }
 
@@ -48,13 +55,14 @@ export const Image = ({ userInfo, postImage, id, loading }) => {
                 </div>
             ) : !onImgError ? (
                 <img
+                        onClick={() => setPreviewImg(true)}
                         onDoubleClick={handleHeartReaction}
                         onTouchEnd={handleTouchEvent}
-                        src={postImage ? `${SERVER_PATH}images/posts/${userInfo?.getUserInfoById?.name}/${postImage}` : sampleImg}
+                        src={postImage && `${SERVER_PATH}images/posts/${userInfo?.getUserInfoById?.name}/${postImage}`}
                         alt="dogs"
                         className="sm:w-full md:w-10/12 cursor-pointer bg-ld h-full transform scale-75"
                         onError={() => setOnImgError(true)}
-                />) : (<p className="text-center sm:w-full md:w-1/2 p-4 text-r">error: img not retrieved, heroku free hosting</p>)
+                />) : (<p className="text-center sm:w-full md:w-1/2 p-4 text-l">S3 not supported</p>)
             }
 
 

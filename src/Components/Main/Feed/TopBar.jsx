@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { AddNewPost } from "./Add Post/index.jsx";
 
-export const TopBar = () => {
-    const [isNewPostFieldShow, setIsNewPostFieldShow] = useState(false);
-
+export const TopBar = ({setIsNewPostFieldShow, isNewPostFieldShow}) => {
     return (
         <div className="flex flex-col justify-between mb-4 relative">
             <div className="flex justify-between lg:w-full overflow-hidden">

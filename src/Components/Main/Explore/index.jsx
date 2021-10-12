@@ -27,7 +27,10 @@ export const Explore = () => {
     const [searchInput, setSearchInput] = useState("");
     const [searchResults, setSearchResults] = useState([]);
 
+    const [imgErr, setImgErr] = useState(false);
+
     useEffect(() => {
+        // seaching results
         const searched = data?.getAllUsers?.filter((value) => {
             if(!searchInput) {
                 return;
@@ -35,17 +38,21 @@ export const Explore = () => {
             return value?.name.includes(searchInput)
         });
         setSearchResults(searched);
-    }, [searchInput, data]);
 
+        // handling imgErr rendering
+        setImgErr(false);
+
+    }, [searchInput, data]);
+//
     return (
         <div className="sm:pl-2 md:pl-32 lg:pl-96 w-full bg-gray-600 h-screen">
-            <div className="sm:px-4 md:px-4 pt-7">
+            <div className="sm:px-4 md:px-4 lg:px-20 pt-7">
                 <h1 className="font-bold text-lg">Explore</h1>
                 <SearchBox
                     searchInput={searchInput}
                     setSearchInput={setSearchInput}
                 />
-                <SearchResults searchResults={searchResults} />
+                <SearchResults imgErr={imgErr} setImgErr={setImgErr} searchResults={searchResults} searchInput={searchInput} />
             </div>
         </div>
     );

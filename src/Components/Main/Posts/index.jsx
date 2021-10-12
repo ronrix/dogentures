@@ -21,6 +21,7 @@ const GET_INFO = gql`
         getInfo {
             avatar
             name
+            bioDesc
             posts
         }
     }
@@ -28,18 +29,18 @@ const GET_INFO = gql`
 
 export const Posts = () => {
     const [token] = useState(() =>
-        JSON.stringify(localStorage.getItem("token"))
+        localStorage.getItem("token")
     );
 
     const { data: posts } = useQuery(GET_ALL_POSTS_BY_USERID, {
-        context: { headers: { authorization: `Bearer ${JSON.parse(token)}` } },
+        context: { headers: { authorization: `Bearer ${token}` } },
     });
     const { data } = useQuery(GET_INFO, {
-        context: { headers: { authorization: `Bearer ${JSON.parse(token)}` } },
+        context: { headers: { authorization: `Bearer ${token}` } },
     }); 
 
     return (
-        <div className="sm:pl-2 md:pl-32 lg:pl-96 w-full bg-gray-600 h-screen">
+        <div className="sm:pl-2 md:pl-32 lg:pl-96 w-full h-screen">
             <div className="sm:px-4 py-12 md:pl-20 ">
                 {/* user info */}
                 <TopInfo data={data} />

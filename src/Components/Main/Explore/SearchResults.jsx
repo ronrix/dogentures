@@ -1,20 +1,12 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { SERVER_PATH } from "../../../config/index.js";
 
-export const SearchResults = ({ searchResults }) => {
-    const [imgErr, setImgErr] = useState(false);
-
-    function handleImg(e) {
-        console.log("img not valid");
-        setImgErr(true);
-    }
-    console.log(imgErr);
+export const SearchResults = ({ imgErr, setImgErr, searchResults, searchInput }) => {
 
     return (
         <div className="mt-4">
             <p>"known dogs"</p>
-            {searchResults?.map((result, idx) => {
-                console.log(result);
+            {searchResults?.length !== 0 ? searchResults?.map((result, idx) => {
                 return (
                     <div key={idx} className="my-2 flex flex-col justify-center hover:bg-lg transition cursor-pointer">
                         <div className="flex items-center hover:bg-g p-2 transition">
@@ -23,7 +15,7 @@ export const SearchResults = ({ searchResults }) => {
                                 <img
                                     src={`${SERVER_PATH}images/profile/${result.name}/${result.avatar}`}
                                     className="rounded-full"
-                                    onError={handleImg}
+                                    onError={() => setImgErr(true)}
                                 />) : <i className="fas fa-user-circle sm:text-3xl md:text-5xl text-d"></i>
                                 }
                             </div>
@@ -33,7 +25,7 @@ export const SearchResults = ({ searchResults }) => {
                         </div>
                     </div>
                 );
-            })}
+            }) : searchInput && <div className="my-2 p-2 text-center font-bold">we can't find what you're looking for!</div>}
         </div>
     );
 };

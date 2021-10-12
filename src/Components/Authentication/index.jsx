@@ -35,10 +35,11 @@ const handleOnSubmit = async (
                 bdate: values.bdate,
             },
         });
+        console.log(data);
         if (data.register.accessToken) {
             localStorage.setItem(
                 "token",
-                data.register.accessToken
+                data?.register?.accessToken
             );
             document.body.style.cursor = "default";
             window.location.href = "/app";
@@ -49,7 +50,6 @@ const handleOnSubmit = async (
 
         setError(data.signup.msg);
     } else {
-        console.log('login auth');
         const { data } = await fetchFn({
             variables: { email: values.email, password: values.password },
         });

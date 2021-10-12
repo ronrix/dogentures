@@ -24,6 +24,7 @@ export const Info = ({userInfo, description, postId, hearts}) => {
 
     const {data} = useQuery(GET_COMMENTS, {
         variables: { id: postId },
+        context: { headers: { 'authorization': `Bearer ${ localStorage.getItem('token') } `} },
         pollInterval: 200,
     });
     const [createComment] = useMutation(POST_COMMENT);
@@ -129,7 +130,7 @@ export const Info = ({userInfo, description, postId, hearts}) => {
     } */
 
     return (
-        <div className="relative bg-l flex-1 flex flex-col rounded-lg p-4">
+        <div className="relative bg-l flex-1 flex flex-col rounded-r-lg p-4">
             <div className="flex flex-col pl-4">
                 <div className="flex justify-between items-center">
                     <div className="flex items-center">
@@ -140,7 +141,7 @@ export const Info = ({userInfo, description, postId, hearts}) => {
                                     className="rounded-full"
                                     onError={() => setIsImgError(true)}
                                 />
-                            </div>) : <i class="far fa-user-circle text-2xl"></i>}
+                            </div>) : <i className="far fa-user-circle text-2xl"></i>}
                         <div className="flex flex-col">
                             <span className="sm:text-md lg:text-2xl text-d font-bold ml-2">{userInfo?.getUserInfoById.name}</span>
                             <span className="sm:text-xs lg:text-sm ml-2 text-dark-gray">@{userInfo?.getUserInfoById.name}</span>

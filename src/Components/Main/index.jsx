@@ -12,8 +12,8 @@ import { gql, useQuery } from "@apollo/client";
 import { ReactComponent as Loading } from "../../assets/loading.svg";
 
 const VERIFY = gql`
-    query VerifyToken($token: String!) {
-        verifyToken(token: $token) {
+    query VerifyToken($token: String!){
+        verifyToken(token: $token){
             ok
         }
     }
@@ -21,16 +21,15 @@ const VERIFY = gql`
 
 export const Feed = (props) => {
     const [token] = useState(() =>
-        JSON.stringify(localStorage.getItem("token"))
+        localStorage.getItem("token")
     );
     const { loading, data, error } = useQuery(VERIFY, {
-        variables: { token: JSON.parse(token) },
-        context: { headers: { authorization: `Bearer ${JSON.parse(token)}` } },
+        variables: {token},
+        context: { headers: { authorization: `Bearer ${token}` } },
     });
 
     useEffect(() => {
-        console.log(error);
-        if (error || data?.verifyToken?.ok === false) {
+        if (data?.verifyToken?.ok === false) {
             localStorage.removeItem("token");
             window.location.href = "/login";
         }

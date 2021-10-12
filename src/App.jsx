@@ -39,7 +39,7 @@ function App() {
                 )} `,
             },
         },
-        pollInterval: 200,
+        //pollInterval: 200,
     });
 
     return (
